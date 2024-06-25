@@ -3,19 +3,11 @@
     $nome = $email = $mensagem = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
         $nome = test_input($_POST["nome"]);
         $email = test_input($_POST["email"]);
         $mensagem = test_input($_POST["mensagem"]);
-    }
 
-    function test_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["nome"])) {
             $nomeErr = 'Por favor, insira seu nome';
         } else {
@@ -39,6 +31,40 @@
         } else {
             $mensagem = test_input($_POST["mensagem"]);
         }
+
+
+        $hostname = "localhost";
+        $username = "root";
+        $password = "";
+        $database = "formulario_contato";
+
+        $conn = new mysqli($hostname, $username, $password, $database);
+
+        if ($conn -> connect_error) {
+            die("Falha na conexão" . $conn -> connect_error);
+        } else {
+            $conexao_ok = "Conectado com sucesso";
+        }
+
+        $stmt = $conn -> prepare('INSERT INTO contatos (nome, email, mensagem, data_envio) VALUES (?, ?, ?, CURRENT_TIMESTAMP)');
+        $stmt ->bind_param('sss', $nome, $email, $mensagem);
+
+        if ($stmt -> execute()) {
+            $mensagem_feedback = 'Dados inseridos com sucesso';
+            header("Location: obrigado.php");
+        } else {
+            $mensagem_feedback = 'Erro ao inserir dados' . $stmt -> error;
+        }
+
+        $stmt -> close();
+        $conn -> close();
+    }
+
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
     }
 ?>
 
@@ -48,10 +74,16 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script src="form_process.php"></script>
     <title>Formulario de Contato</title>
 </head>
 <body>
     <h1>Preencha os Campos Abaixo</h1>
+
+    <?php if(isset($mensagem_feedback)): ?>
+        <p><?php echo $mensagem_feedback; ?></p>
+    <?php endif; ?>
+
     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <label for="nome">Digite seu nome:
             <input type="text" name="nome" value="<?php echo $nome; ?>" >
@@ -71,5 +103,6 @@
     </form>
 </body>
 </html>
+
 
 
