@@ -75,13 +75,14 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Formulario de Contato</title>
 </head>
 <body>
-    <h1>Formulário Básico de contato</h1>
+    <h1 id="title">Formulário Básico de contato</h1>
 
-    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <label for="nome">Digite seu nome:
+    <form  class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <label class="name_input" for="nome">Digite seu nome:
             <input type="text" name="nome" value="<?php echo $nome; ?>" >
         </label>
         <span class="erro">* <?php echo $nomeErr; ?></span>
