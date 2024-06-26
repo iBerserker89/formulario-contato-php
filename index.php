@@ -75,29 +75,35 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./public/styles.css">
     <title>Formulario de Contato</title>
 </head>
 <body>
-    <h1 id="title">Formulário Básico de contato</h1>
+    <h1>Formulário Básico de contato</h1>
 
-    <form  class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <label class="name_input" for="nome">Digite seu nome:
-            <input type="text" name="nome" value="<?php echo $nome; ?>" >
-        </label>
-        <span class="erro">* <?php echo $nomeErr; ?></span>
-        <br><br>
-        <label for="email">Digite seu email:
-            <input type="email" name="email" value="<?php echo $email; ?>" >
-        </label>
-        <span class="erro">* <?php  echo $emailErr; ?></span>
-        <br><br>
-        <label for="mensagem">Digite sua mensagem: </label>
-        <textarea name="mensagem" id="mensagem" cols="40" rows="5"><?php echo $mensagem; ?></textarea>
-        <span class="erro">* <?php  echo $mensagemErr; ?></span>
-        <br><br>
-        <input type="submit" value="Enviar">
+    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <div>
+            <input type="text" id="nome" name="nome" value="<?php echo $nome; ?>" required >
+            <label for="nome">Digite seu nome:</label>
+            <div class="requirements">
+                Deve conter apenas letras e espaços.
+            </div>
+        </div>
 
+        <div>
+            <input type="email" id="email" name="email" value="<?php echo $email; ?>" required placeholder=" ">
+            <label for="email">Digite seu email:</label>
+            <div class="requirements">
+                Deve ser um endereço de email válido.
+            </div>
+        </div>
+
+        <div>
+            <textarea name="mensagem" id="mensagem" cols="40" rows="6" required><?php echo $mensagem; ?></textarea>
+            <label for="mensagem">Digite sua mensagem: </label>
+        </div>
+
+        <input class="submit" type="submit" value="Enviar">
 
         <?php if (isset($mensagem_feedback)): ?>
             <p><?php echo $mensagem_feedback; ?></p>
