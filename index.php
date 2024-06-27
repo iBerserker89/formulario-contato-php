@@ -79,7 +79,7 @@
     <title>Formulario de Contato</title>
 </head>
 <body>
-    <h1>Formulário Básico de contato</h1>
+    <h1>Formulário de Contato</h1>
 
     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <div>
@@ -91,7 +91,7 @@
         </div>
 
         <div>
-            <input type="email" id="email" name="email" value="<?php echo $email; ?>" required placeholder=" ">
+            <input type="email" id="email" name="email" value="<?php echo $email; ?>" required>
             <label for="email">Digite seu email:</label>
             <div class="requirements">
                 Deve ser um endereço de email válido.
