@@ -65,15 +65,15 @@ form {
             }
         }
 
-        .requirements {
-            padding: 0 30px 0 50px;
-            color: #999;
-            max-height: 0;
-            transition: 0.28s;
-            overflow: hidden;
-            color: red;
-            font-style: italic;
-        }
+    }
+
+    .requirements {
+        padding: 0 30px 0 50px;
+        max-height: 0;
+        transition: 0.28s;
+        overflow: hidden;
+        color: red;
+        font-style: italic;
     }
 
     input[type="submit"] {
